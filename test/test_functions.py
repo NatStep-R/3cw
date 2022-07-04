@@ -1,6 +1,7 @@
-from functions import *
 import random
 import pytest
+
+from utils import get_posts_all, get_posts_by_user, get_post_by_pk, get_comments_by_post_id, search_for_posts
 
 
 def test_get_posts():
@@ -14,7 +15,7 @@ def test_posts_by_user():
     users = []
     for post in posts:
         users.append(post["poster_name"])
-    random_name = random.choices(users)
+    random_name = random.choice(users)
     post = get_posts_by_user(random_name)
     assert type(post) == list
     assert len(post) != 0
@@ -27,8 +28,8 @@ def test_posts_by_user_error():
 
 def test_post_by_id():
     posts = get_posts_all()
-    random_id = random.choices(range(len(posts) + 1))
-    post = get_post_by_pk(random_id)
+    random_post = random.choice(posts)
+    post = get_post_by_pk(random_post["pk"])
     assert type(post) == dict
     assert len(post) != 0
 
